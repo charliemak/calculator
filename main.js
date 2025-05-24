@@ -3,6 +3,7 @@ let buttons = document.querySelector('.calc-buttons');
 let state = {
     operandString: "",
     runningTotal : 0,
+    prevButton   : "",
     prevOperator : "",
     screenBuffer : document.querySelector('.calc-screen')
 }
@@ -11,6 +12,7 @@ function resetState(state)
 {
     state.operandString = "";
     state.runningTotal  = 0;
+    state.prevButton    = "";
     state.prevOperator  = "";
     state.screenBuffer.textContent = "0";
 }
@@ -76,7 +78,8 @@ function init() {
 
         else if ("+−×÷=".includes(value))
         {
-            switch (state.prevOperator) {
+            switch (state.prevOperator) 
+            {
                 case "+":
                     state.runningTotal += parseInt(state.operandString);
                     break;
