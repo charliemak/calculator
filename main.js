@@ -47,6 +47,32 @@ function handleBackspace(state, buttonValue)
     }
 }
 
+function handleOperator(state, currentOperator)
+{
+    if (!isOperator(state.prevButton) && isOperator(currentOperator))
+    {
+        switch (state.prevOperator) {
+            case "+":
+                state.runningTotal += parseInt(state.operandString);
+                break;
+            case "−":
+                state.runningTotal -= parseInt(state.operandString);
+                break;
+            case "×":
+                state.runningTotal *= parseInt(state.operandString);
+                break; 
+            case "÷":
+                state.runningTotal /= parseInt(state.operandString);
+                break; 
+            case "=":
+                break; 
+            default:
+                state.runningTotal = parseInt(state.operandString);
+                break;
+        }
+    }
+}
+
 function init() {
 
     buttons.addEventListener('click', function(event) 
@@ -84,43 +110,7 @@ function init() {
 
         else if (isOperator(value))
         {
-            switch (state.prevOperator) 
-            {
-                case "+":
-                    if (!isOperator(state.prevButton))
-                    {
-                        state.runningTotal += parseInt(state.operandString);
-                    }
-
-                    break;
-                case "−":
-                    if (!isOperator(state.prevButton))
-                    {
-                        state.runningTotal -= parseInt(state.operandString);
-                    }
-
-                    break;
-                case "×":
-                    if (!isOperator(state.prevButton))
-                    {
-                        state.runningTotal *= parseInt(state.operandString);
-                    }
-
-                    break;
-                case "÷":
-                    if (!isOperator(state.prevButton))
-                    {
-                        state.runningTotal /= parseInt(state.operandString);
-                    }
-
-                    break;
-                case "=":
-                    break;        
-                default:
-                    state.runningTotal = parseInt(state.operandString);
-                    break;
-            }
-
+            handleOperator(state, value);
             state.screenBuffer.textContent = state.runningTotal;
             state.prevOperator = value;
             state.operandString = "";
