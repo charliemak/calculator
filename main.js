@@ -19,19 +19,23 @@ function handleBackspace(state, buttonValue)
 {
     if (buttonValue==="←")
     {
-        state.operandString =   
+        truncatedString = 
             state
-                .operandString
-                .substring(0, state.operandString.length - 1);
+            .operandString
+            .substring(0, state.operandString.length - 1);
 
-        if (state.operandString)
+        if (truncatedString)
         {
-            state.screenBuffer.textContent = state.operandString;
+            state.screenBuffer.textContent = truncatedString;
+            state.operandString = truncatedString;
         }
-        // TODO: need to ignore backspace if screenBuffer isn't empty
         else 
         {
-            state.screenBuffer.textContent = "0";
+            if (state.operandString)
+            {
+                state.screenBuffer.textContent = "0";
+                state.operandString = "";
+            }
         }
     }
 }
