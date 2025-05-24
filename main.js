@@ -44,7 +44,8 @@ function handleBackspace(state, buttonValue)
 
 function init() {
 
-    buttons.addEventListener('click', function(event) {
+    buttons.addEventListener('click', function(event) 
+    {
         let value = event.target.textContent.trim();
         let intValue = parseInt(value);
 
@@ -103,6 +104,8 @@ function init() {
             state.prevOperator = value;
             state.operandString = "";
         }
+
+        state.prevButton = value;
     })
 }
 
