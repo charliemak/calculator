@@ -3,6 +3,7 @@ let buttons = document.querySelector('.calc-buttons');
 let state = {
     operandString: "",
     runningTotal : 0,
+    prevButton   : "",
     prevOperator : "",
     screenBuffer : document.querySelector('.calc-screen')
 }
@@ -11,8 +12,14 @@ function resetState(state)
 {
     state.operandString = "";
     state.runningTotal  = 0;
+    state.prevButton    = "";
     state.prevOperator  = "";
     state.screenBuffer.textContent = "0";
+}
+
+function isOperator(value)
+{
+    return "+−×÷=".includes(value);
 }
 
 function handleBackspace(state, buttonValue)
@@ -40,9 +47,36 @@ function handleBackspace(state, buttonValue)
     }
 }
 
+function handleOperator(state, currentOperator)
+{
+    if (!isOperator(state.prevButton) && isOperator(currentOperator))
+    {
+        switch (state.prevOperator) {
+            case "+":
+                state.runningTotal += parseInt(state.operandString);
+                break;
+            case "−":
+                state.runningTotal -= parseInt(state.operandString);
+                break;
+            case "×":
+                state.runningTotal *= parseInt(state.operandString);
+                break; 
+            case "÷":
+                state.runningTotal /= parseInt(state.operandString);
+                break; 
+            case "=":
+                break; 
+            default:
+                state.runningTotal = parseInt(state.operandString);
+                break;
+        }
+    }
+}
+
 function init() {
 
-    buttons.addEventListener('click', function(event) {
+    buttons.addEventListener('click', function(event) 
+    {
         let value = event.target.textContent.trim();
         let intValue = parseInt(value);
 
@@ -74,32 +108,15 @@ function init() {
             handleBackspace(state, value);
         }
 
-        else if ("+−×÷=".includes(value))
+        else if (isOperator(value))
         {
-            switch (state.prevOperator) {
-                case "+":
-                    state.runningTotal += parseInt(state.operandString);
-                    break;
-                case "−":
-                    state.runningTotal -= parseInt(state.operandString);
-                    break;
-                case "×":
-                    state.runningTotal *= parseInt(state.operandString);
-                    break;
-                case "÷":
-                    state.runningTotal /= parseInt(state.operandString);
-                    break;
-                case "=":
-                    break;        
-                default:
-                    state.runningTotal = parseInt(state.operandString);
-                    break;
-            }
-
+            handleOperator(state, value);
             state.screenBuffer.textContent = state.runningTotal;
             state.prevOperator = value;
             state.operandString = "";
         }
+
+        state.prevButton = value;
     })
 }
 
