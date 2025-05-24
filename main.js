@@ -17,6 +17,11 @@ function resetState(state)
     state.screenBuffer.textContent = "0";
 }
 
+function isOperator(value)
+{
+    return "+−×÷=".includes(value);
+}
+
 function handleBackspace(state, buttonValue)
 {
     if (buttonValue==="←")
@@ -77,7 +82,7 @@ function init() {
             handleBackspace(state, value);
         }
 
-        else if ("+−×÷=".includes(value))
+        else if (isOperator(value))
         {
             switch (state.prevOperator) 
             {
