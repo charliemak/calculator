@@ -87,16 +87,32 @@ function init() {
             switch (state.prevOperator) 
             {
                 case "+":
-                    state.runningTotal += parseInt(state.operandString);
+                    if (!isOperator(state.prevButton))
+                    {
+                        state.runningTotal += parseInt(state.operandString);
+                    }
+
                     break;
                 case "−":
-                    state.runningTotal -= parseInt(state.operandString);
+                    if (!isOperator(state.prevButton))
+                    {
+                        state.runningTotal -= parseInt(state.operandString);
+                    }
+
                     break;
                 case "×":
-                    state.runningTotal *= parseInt(state.operandString);
+                    if (!isOperator(state.prevButton))
+                    {
+                        state.runningTotal *= parseInt(state.operandString);
+                    }
+
                     break;
                 case "÷":
-                    state.runningTotal /= parseInt(state.operandString);
+                    if (!isOperator(state.prevButton))
+                    {
+                        state.runningTotal /= parseInt(state.operandString);
+                    }
+
                     break;
                 case "=":
                     break;        
