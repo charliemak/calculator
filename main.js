@@ -49,7 +49,9 @@ function handleBackspace(state, buttonValue)
 
 function handleOperator(state, currentOperator)
 {
-    if (!isOperator(state.prevButton) && isOperator(currentOperator))
+    if (!isOperator(state.prevButton) 
+        && isOperator(currentOperator)
+        && state.operandString)
     {
         switch (state.prevOperator) {
             case "+":
