@@ -1,6 +1,7 @@
 let buttons = document.querySelector('.calc-buttons');
 
 let state = {
+    currButton   : "",
     operandString: "",
     runningTotal : 0,
     prevButton   : "",
@@ -10,6 +11,7 @@ let state = {
 
 function resetState(state)
 {
+    state.currButton    = "";
     state.operandString = "";
     state.runningTotal  = 0;
     state.prevButton    = "";
@@ -25,9 +27,9 @@ function isOperator(value)
     }
 }
 
-function handleBackspace(state, buttonValue)
+function handleBackspace(state)
 {
-    if (buttonValue==="←")
+    if (state.currButton==="←")
     {
         truncatedString = 
             state
@@ -50,10 +52,10 @@ function handleBackspace(state, buttonValue)
     }
 }
 
-function handleOperator(state, currentOperator)
+function handleOperator(state)
 {
     if (!isOperator(state.prevButton) 
-        && isOperator(currentOperator)
+        && isOperator(state.currButton)
         && state.operandString)
     {
         switch (state.prevOperator) {
@@ -82,8 +84,8 @@ function init() {
 
     buttons.addEventListener('click', function(event) 
     {
-        let value = event.target.textContent.trim();
-        let intValue = parseInt(value);
+        state.currButton = event.target.textContent.trim();
+        let intValue = parseInt(state.currButton);
 
         if (!isNaN(intValue))
         {
@@ -91,37 +93,37 @@ function init() {
             {
                 if (intValue)
                 {
-                    state.operandString = value;
-                    state.screenBuffer.textContent = value;
+                    state.operandString = state.currButton;
+                    state.screenBuffer.textContent = state.currButton;
                 }
             }
             else 
             {
-                state.operandString += value;
-                state.screenBuffer.textContent += value;
+                state.operandString += state.currButton;
+                state.screenBuffer.textContent += state.currButton;
             }
 
         }
 
-        else if (value==="C")
+        else if (state.currButton==="C")
         {
             resetState(state);
         }
 
-        else if (value==="←")
+        else if (state.currButton==="←")
         {
-            handleBackspace(state, value);
+            handleBackspace(state);
         }
 
-        else if (isOperator(value))
+        else if (isOperator(state.currButton))
         {
-            handleOperator(state, value);
+            handleOperator(state);
             state.screenBuffer.textContent = state.runningTotal;
-            state.prevOperator = value;
+            state.prevOperator = state.currButton;
             state.operandString = "";
         }
 
-        state.prevButton = value;
+        state.prevButton = state.currButton;
     })
 }
 
