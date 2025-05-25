@@ -123,7 +123,10 @@ function init() {
             state.operandString = "";
         }
 
-        state.prevButton = state.currButton;
+        if (state.currButton!=="C")
+        {
+            state.prevButton = state.currButton;
+        }
     })
 }
 
