@@ -19,7 +19,10 @@ function resetState(state)
 
 function isOperator(value)
 {
-    return "+−×÷=".includes(value);
+    if (value)
+    {
+        return "+−×÷=".includes(value);
+    }
 }
 
 function handleBackspace(state, buttonValue)
