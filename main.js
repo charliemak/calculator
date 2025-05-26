@@ -105,6 +105,12 @@ function init() {
 
         }
 
+        else if(state.currButton==="+/−")
+        {
+            state.operandString = "-" + state.operandString;
+            state.screenBuffer.textContent = state.operandString;
+        }
+
         else if (state.currButton==="C")
         {
             resetState(state);
