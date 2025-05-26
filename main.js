@@ -91,7 +91,7 @@ function init() {
         {
             if (!state.operandString)
             {
-                if (intValue)
+                if (state.prevOperator!=="=" && intValue)
                 {
                     state.operandString = state.currButton;
                     state.screenBuffer.textContent = state.currButton;
