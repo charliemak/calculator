@@ -116,6 +116,10 @@ function handleOperator(state)
                 break;
         }
     }
+
+    state.screenBuffer.textContent = state.runningTotal;
+    state.prevOperator = state.currButton;
+    state.operandString = "";
 }
 
 function init() {
@@ -148,9 +152,6 @@ function init() {
         else if (isOperator(state.currButton))
         {
             handleOperator(state);
-            state.screenBuffer.textContent = state.runningTotal;
-            state.prevOperator = state.currButton;
-            state.operandString = "";
         }
 
         if (state.currButton!=="C")
