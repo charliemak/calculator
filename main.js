@@ -47,7 +47,10 @@ function handleNumber(state)
             state.screenBuffer.textContent += state.currButton;
         }
     }
+
+    state.prevButton = state.currButton;
 }
+
 function handleNegativeSign(state)
 {
     if (state.currButton==="+/−" && state.prevButton!=="+/−")
@@ -63,6 +66,8 @@ function handleNegativeSign(state)
             state.screenBuffer.textContent = state.operandString;
         }
     }
+
+    state.prevButton = state.currButton;
 }
 
 function handleBackspace(state)
@@ -88,6 +93,8 @@ function handleBackspace(state)
             }
         }
     }
+
+    state.prevButton = state.currButton;
 }
 
 function handleOperator(state)
@@ -120,6 +127,7 @@ function handleOperator(state)
     state.screenBuffer.textContent = state.runningTotal;
     state.prevOperator = state.currButton;
     state.operandString = "";
+    state.prevButton = state.currButton;
 }
 
 function init() {
@@ -152,11 +160,6 @@ function init() {
         else if (isOperator(state.currButton))
         {
             handleOperator(state);
-        }
-
-        if (state.currButton!=="C")
-        {
-            state.prevButton = state.currButton;
         }
     })
 }
