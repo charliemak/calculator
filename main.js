@@ -29,6 +29,25 @@ function isOperator(value)
     }
 }
 
+function handleNumber(state)
+{
+    if (!isNaN(state.currIntValue))
+    {
+        if (!state.operandString)
+        {
+            if (state.prevOperator!=="=" && state.currIntValue)
+            {
+                state.operandString = state.currButton;
+                state.screenBuffer.textContent = state.currButton;
+            }
+        }
+        else 
+        {
+            state.operandString += state.currButton;
+            state.screenBuffer.textContent += state.currButton;
+        }
+    }
+}
 function handleNegativeSign(state)
 {
     if (state.currButton==="+/−" && state.prevButton!=="+/−")
@@ -108,20 +127,7 @@ function init() {
 
         if (!isNaN(state.currIntValue))
         {
-            if (!state.operandString)
-            {
-                if (state.prevOperator!=="=" && intValue)
-                {
-                    state.operandString = state.currButton;
-                    state.screenBuffer.textContent = state.currButton;
-                }
-            }
-            else 
-            {
-                state.operandString += state.currButton;
-                state.screenBuffer.textContent += state.currButton;
-            }
-
+            handleNumber(state);
         }
 
         else if(state.currButton==="+/−")
