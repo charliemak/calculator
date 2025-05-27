@@ -29,15 +29,18 @@ function isOperator(value)
 
 function handleNegativeSign(state)
 {
-    if (state.prevOperator==="=")
+    if (state.currButton==="+/−" && state.prevButton!=="+/−")
     {
-        state.runningTotal *= -1;
-        state.screenBuffer.textContent = state.runningTotal;
-    }
-    else
-    {
-        state.operandString = "-" + state.operandString;
-        state.screenBuffer.textContent = state.operandString;
+        if (state.prevOperator==="=")
+        {
+            state.runningTotal *= -1;
+            state.screenBuffer.textContent = state.runningTotal;
+        }
+        else
+        {
+            state.operandString = "-" + state.operandString;
+            state.screenBuffer.textContent = state.operandString;
+        }
     }
 }
 
