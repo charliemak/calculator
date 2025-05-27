@@ -2,6 +2,7 @@ let buttons = document.querySelector('.calc-buttons');
 
 let state = {
     currButton   : "",
+    currIntValue : null,
     operandString: "",
     runningTotal : 0,
     prevButton   : "",
@@ -12,6 +13,7 @@ let state = {
 function resetState(state)
 {
     state.currButton    = "";
+    state.currIntValue  = null,
     state.operandString = "";
     state.runningTotal  = 0;
     state.prevButton    = "";
@@ -102,9 +104,9 @@ function init() {
     buttons.addEventListener('click', function(event) 
     {
         state.currButton = event.target.textContent.trim();
-        let intValue = parseInt(state.currButton);
+        state.currIntValue = parseInt(state.currButton);
 
-        if (!isNaN(intValue))
+        if (!isNaN(state.currIntValue))
         {
             if (!state.operandString)
             {
